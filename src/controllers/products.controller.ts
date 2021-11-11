@@ -10,7 +10,10 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  // ParseIntPipe,
 } from '@nestjs/common';
+import { ParseIntPipe } from 'src/common/parse-int.pipe';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
 import { ProductsService } from 'src/services/products.service';
 
 // import { Response } from 'express';
@@ -30,7 +33,7 @@ export class ProductsController {
 
   @Get('/:id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getProduct(@Param('id') id: number) {
+  getProduct(@Param('id', ParseIntPipe) id: number) {
     // getProduct(@Res() response: Response, @Param('id') id: string) {
     // Ejemplo de como responder usando Express en Nest
     // response.status(HttpStatus.OK).send({
@@ -64,7 +67,7 @@ export class ProductsController {
   }
 
   @Post('/')
-  createProduct(@Body() body: any) {
+  createProduct(@Body() body: CreateProductDto) {
     // return {
     //   message: 'Product created',
     //   body,
@@ -79,7 +82,7 @@ export class ProductsController {
   }
 
   @Put('/:id')
-  updateProduct(@Param('id') id: number, @Body() body: any) {
+  updateProduct(@Param('id') id: number, @Body() body: UpdateProductDto) {
     // return {
     //   message: `Product ${id} updated`,
     //   body,
